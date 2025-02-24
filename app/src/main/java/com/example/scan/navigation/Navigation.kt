@@ -7,16 +7,19 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.scan.view.HomeScreen
 import com.example.scan.view.SplashScreen
+
 @Composable
 fun AppNavigation() {
     val modifier = Modifier
     val navController = rememberNavController()
     NavHost(
         navController = navController,
-        startDestination = "",
+        startDestination = "Splash",
         modifier = modifier.fillMaxSize()
     ) {
-
-
+        composable("Splash") {
+            SplashScreen(navController)
+        }
+        composable("Home") { HomeScreen()  }
     }
 }

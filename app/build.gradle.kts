@@ -2,6 +2,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+  //   alias(libs.plugins.kotlin.serialization )
+
 }
 
 android {
@@ -53,15 +55,21 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    //todo:Navegacion<>
+   // implementation(libs.kotlinx.serializacion.json)
+   // implementation(libs.androidx.navigation.compose)
+    //</>
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.24")
+   implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.24")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 
     implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
 
     implementation("androidx.activity:activity-compose:1.8.2")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
@@ -85,7 +93,9 @@ dependencies {
 
     // Navigation
     implementation("androidx.navigation:navigation-compose:2.8.0")
+    implementation("io.coil-kt:coil-compose:2.4.0")
     //splash
     implementation("androidx.core:core-splashscreen:1.0.1")
 
+ //  implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
 }
