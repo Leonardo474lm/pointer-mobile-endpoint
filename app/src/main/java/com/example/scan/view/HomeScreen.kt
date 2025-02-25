@@ -40,12 +40,13 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.scan.R
 import kotlinx.coroutines.delay
 import kotlin.math.ceil
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(navController: NavController) {
     val context = LocalContext.current;
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -146,7 +147,8 @@ fun HomeScreen() {
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 Button(
-                    onClick = { /* TODO: Implementar login con cámara */ },
+                    onClick = { /* TODO: Implementar login con cámara */
+                    navController.navigate("Camera")},
                     modifier = Modifier
                         .weight(1f)
                         .height(55.dp),

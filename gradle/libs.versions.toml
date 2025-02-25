@@ -11,6 +11,7 @@ activity = "1.10.0"
 constraintlayout = "2.2.0"
 navigationCompose="2.8.7-alpha08"
 kotlinSerialization="1.6.3"
+playServicesRecaptcha = "17.1.0"
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -20,6 +21,7 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+play-services-recaptcha = { group = "com.google.android.gms", name = "play-services-recaptcha", version.ref = "playServicesRecaptcha" }
 #androidx-navigation-compose={module="androidx.navigation:navigation-compose",version.ref="navigationCompose"}
 #kotlinx-serializacion-json={module="org.jetbrains.kotlin:kotlin-serialization-json",version.ref="kotlinSerialization"}
 [plugins]

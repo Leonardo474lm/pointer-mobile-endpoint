@@ -55,6 +55,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.play.services.recaptcha)
     //todo:Navegacion<>
    // implementation(libs.kotlinx.serializacion.json)
    // implementation(libs.androidx.navigation.compose)
@@ -85,17 +86,27 @@ dependencies {
     implementation("androidx.camera:camera-camera2:1.4.0-beta01")
     implementation("androidx.camera:camera-lifecycle:1.4.0-beta01")
     implementation("androidx.camera:camera-view:1.4.0-beta01")
-
+    implementation("androidx.camera:camera-extensions:1.4.1")
     // ML Kit
     implementation("com.google.mlkit:text-recognition:16.0.0")
     implementation("com.google.mlkit:face-detection:16.1.7")
     implementation("com.google.mlkit:barcode-scanning:17.2.0")
+    implementation("com.google.mlkit:image-labeling:17.0.7")//imagenes
+    implementation("com.google.mlkit:object-detection:17.0.0")//detec de obj
 
     // Navigation
     implementation("androidx.navigation:navigation-compose:2.8.0")
     implementation("io.coil-kt:coil-compose:2.4.0")
     //splash
     implementation("androidx.core:core-splashscreen:1.0.1")
+
+    //retrofit
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation ("com.squareup.okhttp3:okhttp:4.9.3")
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.9.3")
+    implementation ("com.squareup.retrofit2:converter-scalars:2.9.0")
+
 
  //  implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
 }
