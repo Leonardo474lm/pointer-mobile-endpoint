@@ -81,6 +81,9 @@ dependencies {
     implementation("androidx.compose.material:material:1.6.1")
     implementation("androidx.compose.ui:ui-tooling-preview:1.6.1")
 
+    //scan fingers
+    implementation("androidx.biometric:biometric:1.1.0")
+
     // CameraX
     implementation("androidx.camera:camera-core:1.4.0-beta01")
     implementation("androidx.camera:camera-camera2:1.4.0-beta01")
