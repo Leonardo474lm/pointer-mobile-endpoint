@@ -2,8 +2,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-  //   alias(libs.plugins.kotlin.serialization )
-
+   // id("kolin-kapt")
+  //  id("com.google.protobuf")version "0.9.4"
 }
 
 android {
@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.scan"
-        minSdk = 26
+        minSdk = 23
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -29,6 +29,7 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -56,16 +57,13 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.play.services.recaptcha)
-    //todo:Navegacion<>
-   // implementation(libs.kotlinx.serializacion.json)
-   // implementation(libs.androidx.navigation.compose)
-    //</>
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.24")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
-
+    implementation("androidx.compose.material3:material3:1.2.0")
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("com.google.android.material:material:1.11.0")
 
@@ -94,8 +92,8 @@ dependencies {
     implementation("com.google.mlkit:text-recognition:16.0.0")
     implementation("com.google.mlkit:face-detection:16.1.7")
     implementation("com.google.mlkit:barcode-scanning:17.2.0")
-    implementation("com.google.mlkit:image-labeling:17.0.7")//imagenes
-    implementation("com.google.mlkit:object-detection:17.0.0")//detec de obj
+    implementation("com.google.mlkit:image-labeling:17.0.7")
+    implementation("com.google.mlkit:object-detection:17.0.0")
 
     // Navigation
     implementation("androidx.navigation:navigation-compose:2.8.0")
@@ -111,5 +109,11 @@ dependencies {
     implementation ("com.squareup.retrofit2:converter-scalars:2.9.0")
 
 
- //  implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    implementation("javax.annotation:javax.annotation-api:1.3.2")
+    implementation("androidx.core:core-ktx:1.12.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+
 }
+

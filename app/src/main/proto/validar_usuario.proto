@@ -1,0 +1,41 @@
+syntax = "proto3";
+package utils.auth.webapp.v1;
+option java_multiple_files = true;
+option java_outer_classname = "ValidarUsuarioProto";
+option java_package = "pe.pointer.utils.auth.webapp.v1";
+service ValidarUsuarioService {
+  rpc AuthenticarUsuario(AuthenticarUsuarioRequest) returns (AuthenticarUsuarioResponse);
+  rpc ListarEmpresasDisponibles(ListarEmpresasDisponiblesRequest) returns (ListarEmpresasDisponiblesResponse);
+  rpc ListarSucursalesPorEmpresa(ListarSucursalesPorEmpresaRequest) returns (ListarSucursalesPorEmpresaResponse);
+}
+message ListarEmpresasDisponiblesRequest {}
+message Empresa {
+  string id_empresa = 1;
+  string glosa_empresa = 2;
+  string ruc_empresa = 3;
+}
+message ListarEmpresasDisponiblesResponse {
+  repeated Empresa empresas = 1;
+}
+message ListarSucursalesPorEmpresaRequest {
+  string id_empresa = 1;
+}
+message Sucursal {
+  string id_sucursal = 1;
+  string glosa_sucursal = 2;
+  string id_empresa = 3;
+  string direccion_sucursal = 4;
+}
+message ListarSucursalesPorEmpresaResponse {
+  repeated Sucursal sucursales = 1;
+}
+message AuthenticarUsuarioRequest {
+  string usuario = 1;
+  string contrasena = 2;
+  string sucursal = 3;
+  string empresa = 4;
+}
+message AuthenticarUsuarioResponse {
+  bool valid = 1;
+  map<string, string> metadata = 2;
+}

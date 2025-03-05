@@ -3,6 +3,7 @@ package com.example.scan.view
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,6 +19,10 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.DropdownMenu
+import androidx.compose.material.DropdownMenuItem
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.ExposedDropdownMenuBox
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
@@ -40,11 +45,14 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.scan.R
+import com.example.scan.model.data.entiti.Empresa
+import com.example.scan.model.retrofit.fetchListEmpresa
+import com.example.scan.model.retrofit.fetchListSucursal
 import com.example.scan.view.access.FingertipsDeteccion
-import java.util.concurrent.Executor
-import java.util.concurrent.Executors
+
 
 @Composable
 fun LoginScreen(navController: NavController) {
@@ -53,10 +61,10 @@ fun LoginScreen(navController: NavController) {
     var password by remember { mutableStateOf("") }
     var empresa by remember { mutableStateOf("") }
     var sucursal by remember { mutableStateOf("") }
-    var isVisible by remember { mutableStateOf(false) }
-    var isLoading by remember { mutableStateOf(false) }
     val activity = context as FragmentActivity
     val executor = ContextCompat.getMainExecutor(activity)
+
+    val opciones = listOf("Delcrosa","Pointer ERP")
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -69,28 +77,24 @@ fun LoginScreen(navController: NavController) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
+
+
             Image(
                 painter = painterResource(R.drawable.delcrosalogo),
                 contentDescription = ""
             )
+
             Spacer(modifier = Modifier.height(16.dp))
             //todo:registro de empresas
-            OutlinedTextField(
-                value = empresa,
-                onValueChange = { empresa = it },
-                label = { Text("Empresa") },
-                singleLine = true,
-                modifier = Modifier.fillMaxWidth()
-            )
+            Button(onClick = { fetchListEmpresa()}) { Text("pointer de prueba") }
+            Button(onClick = { fetchListSucursal("01") }) { Text("pointer" ) }
+
+            DropdownButton("Empresa",opciones);
             Spacer(modifier = Modifier.height(16.dp))
-            OutlinedTextField(
-                value = sucursal,
-                onValueChange = { sucursal = it },
-                label = { Text("Sucursal") },
-                singleLine = true,
-                modifier = Modifier.fillMaxWidth()
-            )
+
+            DropdownButton("Sucursal",opciones);
             Spacer(modifier = Modifier.height(16.dp))
+
             //todo:registro
             Column(
                 modifier = Modifier
@@ -196,3 +200,42 @@ fun LoginScreen(navController: NavController) {
     }
 }
 
+
+@OptIn(ExperimentalMaterialApi::class)
+@Composable
+fun DropdownButton(name:String, opciones:List<String>) {
+    var expanded by remember { mutableStateOf(false) }
+    var seleccion by remember { mutableStateOf("Seleccionar opción") }
+
+    ExposedDropdownMenuBox(
+        expanded = expanded,
+        onExpandedChange = { expanded = !expanded }
+    ) {
+        OutlinedTextField(
+            value = seleccion,
+            onValueChange = { },
+            label = { Text(name) },
+            singleLine = true,
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { expanded = true }, // 🔹 Hace que el campo sea interactivo
+            readOnly = true
+        )
+        ExposedDropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false }
+        ) {
+            opciones.forEach { opcion ->
+                DropdownMenuItem(
+                    onClick = {
+                        seleccion = opcion
+                        expanded = false
+                    },
+                    content = { Text(opcion) }
+                )
+            }
+        }
+
+    }
+
+}
