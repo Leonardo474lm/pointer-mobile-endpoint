@@ -2,6 +2,7 @@ package com.example.scan.navigation
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -9,6 +10,7 @@ import com.example.scan.view.access.FaceScanner
 import com.example.scan.view.HomeScreen
 import com.example.scan.view.LoginScreen
 import com.example.scan.view.SplashScreen
+import com.example.scan.view.filtro.CameraPreview
 
 @Composable
 fun AppNavigation() {
@@ -25,6 +27,6 @@ fun AppNavigation() {
         composable("Login") { LoginScreen(navController)  }
         composable("Camera") { FaceScanner(navController)  }
         composable("Home") { HomeScreen(navController)  }
-
+composable("captura"){ CameraPreview(navController) }
     }
 }

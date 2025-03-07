@@ -31,12 +31,13 @@ object RetrofitApiClient {
 
 }
 
-fun fetchListEmpresa() {
+fun fetchListEmpresa(lista:(List<Empresa>)->Unit={}) {
     RetrofitApiClient.instance.listarEmpresas().enqueue(object : Callback<List<Empresa>> {
         override fun onResponse(call: Call<List<Empresa>>, response: Response<List<Empresa>>) {
             if (response.isSuccessful) {
                 val empresas = response.body()
                 Log.d("Retrofit", "Empresas recibidas: $empresas")
+                lista(empresas?.map { it }?: emptyList())
             } else {
                 Log.d("Retrofit", "Error en la respuesta: ${response.code()}")
             }
@@ -46,12 +47,16 @@ fun fetchListEmpresa() {
         }
     })
 }
-fun fetchListSucursal(idEmpresa: String) {
+fun fetchListSucursal(idEmpresa: String,lista:(List<String>)->Unit={}) {
     RetrofitApiClient.instance.listaSucursal(idEmpresa =idEmpresa ).enqueue(object : Callback<List<Sucursal>> {
         override fun onResponse(call: Call<List<Sucursal>>, response: Response<List<Sucursal>>) {
             if (response.isSuccessful) {
                 val sucursal = response.body()
+
                 Log.d("Retrofit", "Sucursal: $sucursal")
+                lista(sucursal?.map{it.id_empresa}?: emptyList())
+                Log.d("Retrofit", "Sucursal: $lista")
+
             } else {
                 Log.d("Retrofit", "Error en la respuesta: ${response.code()}")
             }

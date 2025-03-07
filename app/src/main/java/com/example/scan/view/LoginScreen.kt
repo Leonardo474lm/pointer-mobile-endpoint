@@ -1,6 +1,8 @@
 package com.example.scan.view
 
+import android.util.Log
 import android.widget.Toast
+import androidx.collection.mutableObjectListOf
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -19,7 +21,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ExposedDropdownMenuBox
@@ -59,12 +60,11 @@ fun LoginScreen(navController: NavController) {
     val context = LocalContext.current;
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-    var empresa by remember { mutableStateOf("") }
+    val empresa by remember { mutableStateOf("") }
     var sucursal by remember { mutableStateOf("") }
     val activity = context as FragmentActivity
     val executor = ContextCompat.getMainExecutor(activity)
-
-    val opciones = listOf("Delcrosa","Pointer ERP")
+    var opciones by remember { mutableStateOf((emptyList<String> ())) }
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -86,8 +86,20 @@ fun LoginScreen(navController: NavController) {
 
             Spacer(modifier = Modifier.height(16.dp))
             //todo:registro de empresas
-            Button(onClick = { fetchListEmpresa()}) { Text("pointer de prueba") }
-            Button(onClick = { fetchListSucursal("01") }) { Text("pointer" ) }
+            Button(onClick = {
+                fetchListEmpresa() {empresas->
+                    Log.d("Retrofit", "${empresas}")
+                }
+            }) {
+
+                Text("pointer de prueba")
+            }
+            Button(onClick = {
+                fetchListSucursal("01") { sucursales ->
+                    Log.d("Retrofit", "${sucursales}")
+
+                }
+            }) { Text("pointer") }
 
             DropdownButton("Empresa",opciones);
             Spacer(modifier = Modifier.height(16.dp))
@@ -203,13 +215,16 @@ fun LoginScreen(navController: NavController) {
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun DropdownButton(name:String, opciones:List<String>) {
+fun DropdownButton(name: String, opciones: List<String>) {
     var expanded by remember { mutableStateOf(false) }
     var seleccion by remember { mutableStateOf("Seleccionar opción") }
+    var empresas by remember { mutableStateOf(emptyList<String>()) }
 
     ExposedDropdownMenuBox(
         expanded = expanded,
-        onExpandedChange = { expanded = !expanded }
+        onExpandedChange = {
+            fetchListEmpresa(){empresa->empresas=empresa?.map{it.glosa_empresa}?: emptyList()}
+            expanded = !expanded }
     ) {
         OutlinedTextField(
             value = seleccion,
@@ -218,14 +233,14 @@ fun DropdownButton(name:String, opciones:List<String>) {
             singleLine = true,
             modifier = Modifier
                 .fillMaxWidth()
-                .clickable { expanded = true }, // 🔹 Hace que el campo sea interactivo
+                .clickable {   }, // 🔹 Hace que el campo sea interactivo
             readOnly = true
         )
         ExposedDropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false }
         ) {
-            opciones.forEach { opcion ->
+            empresas.forEach { opcion ->
                 DropdownMenuItem(
                     onClick = {
                         seleccion = opcion
